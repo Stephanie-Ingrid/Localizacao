@@ -12,6 +12,10 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 
     List<Cidade> findByNome(String nome);
 
+    @Query(" select c from Cidade c where upper(c.nome) like upper(?1) ")
+    List<Cidade> findByNomeLike(String nome);
+
+
     List<Cidade> findByNomeStartingWith(String nome);
 
     List<Cidade> findByNomeEndingWith(String nome);

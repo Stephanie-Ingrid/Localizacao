@@ -13,4 +13,8 @@ values
     (4, 'Salvador', 2418005),
     (5, 'tocantins', 1511459),
     (6, 'Brasilia', 2817068),
-    (7, 'Belo Horizonte', 2315560);
+    (7, 'Belo Horizonte', 2315560)
+    ;
+
+--o comando like o % indica onde começa ou onde termina
+--select * from tb_cidade where nome like '%a'
