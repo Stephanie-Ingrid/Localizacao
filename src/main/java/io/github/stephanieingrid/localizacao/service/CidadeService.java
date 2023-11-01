@@ -4,11 +4,11 @@ import io.github.stephanieingrid.localizacao.domain.entity.Cidade;
 import io.github.stephanieingrid.localizacao.domain.repository.CidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CidadeService {
@@ -43,7 +43,7 @@ public class CidadeService {
     public void listarCidadesPorNomePage() {
         Pageable pegeable = PageRequest.of(0, 10);
         cidadeRepository
-                .findByNomeLike("s%", Sort.by("habitantes"))
+                .findByNomeLike("%%%%", Sort.by("habitantes"))
                 .forEach(System.out::println);
     }
 
@@ -52,7 +52,18 @@ public class CidadeService {
 
     }
 
-    void listarCidades() {
+    public void listarCidades() {
         cidadeRepository.findAll().forEach(System.out::println);
     }
+    public List<Cidade> filtroDinamico(Cidade cidade){
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
+        Example<Cidade> example = Example.of(cidade, matcher);
+        return cidadeRepository.findAll(example);
+    }
+
+
+
 }
