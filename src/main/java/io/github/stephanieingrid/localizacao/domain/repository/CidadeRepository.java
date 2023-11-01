@@ -5,6 +5,7 @@ import io.github.stephanieingrid.localizacao.domain.entity.Cidade;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -41,5 +42,5 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long> {
     List<Cidade> findByHabitantesLessThanAndNomeLike(Long habitantes, String nome);
 
 
-
+    List<Cidade> findAll(Specification<Cidade> nome);
 }

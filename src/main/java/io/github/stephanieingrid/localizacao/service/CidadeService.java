@@ -2,13 +2,13 @@ package io.github.stephanieingrid.localizacao.service;
 
 import io.github.stephanieingrid.localizacao.domain.entity.Cidade;
 import io.github.stephanieingrid.localizacao.domain.repository.CidadeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static io.github.stephanieingrid.localizacao.domain.repository.specs.CidadeSpecs.*;
 
 @Service
 public class CidadeService {
@@ -62,6 +62,10 @@ public class CidadeService {
                 .withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
         Example<Cidade> example = Example.of(cidade, matcher);
         return cidadeRepository.findAll(example);
+    }
+
+    public void listarCidadesByNomeSpec(){
+        cidadeRepository.findAll(nomeEqual("São Paulo").and(habitantesGreaterThan(1000))).forEach(System.out::println);
     }
 
 
