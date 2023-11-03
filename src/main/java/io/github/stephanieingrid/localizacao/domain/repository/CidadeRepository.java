@@ -14,6 +14,8 @@ import java.util.List;
 public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 
 
+    List<Cidade> findAll(Specification<Cidade> nome);
+
     List<Cidade> findByNome(String nome);
 
     //Buscar pelo nome like ordenado
@@ -42,5 +44,4 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long> {
     List<Cidade> findByHabitantesLessThanAndNomeLike(Long habitantes, String nome);
 
 
-    List<Cidade> findAll(Specification<Cidade> nome);
 }

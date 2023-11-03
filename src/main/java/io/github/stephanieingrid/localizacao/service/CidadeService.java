@@ -3,8 +3,10 @@ package io.github.stephanieingrid.localizacao.service;
 import io.github.stephanieingrid.localizacao.domain.entity.Cidade;
 import io.github.stephanieingrid.localizacao.domain.repository.CidadeRepository;
 import org.springframework.data.domain.*;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -65,9 +67,28 @@ public class CidadeService {
     }
 
     public void listarCidadesByNomeSpec(){
-        cidadeRepository.findAll(nomeEqual("São Paulo").and(habitantesGreaterThan(1000))).forEach(System.out::println);
+        cidadeRepository
+                .findAll(nomeEqual("São Paulo").and(habitantesGreaterThan(1000L)))
+                .forEach(System.out::println);
     }
 
 
+    //select * from cidade where 1 = 1
+    public void listarCidadesSpecsFiltroDinamico(Cidade filtro){
+        Specification<Cidade> specs =
+                Specification.where(((root, query, criteriaBuilder) -> criteriaBuilder.conjunction()));
+
+        if (filtro.getId() != null){
+            specs = specs.and(idEqual(( filtro.getId() )));
+        }
+        if (StringUtils.hasText(filtro.getNome())){
+            specs = specs.and(nomeLike(filtro.getNome()));
+        }
+        if (filtro.getHabitantes() != null){
+            specs = specs.and(habitantesGreaterThan(filtro.getHabitantes()));
+        }
+
+        cidadeRepository.findAll(specs).forEach(System.out::println);
+    }
 
 }
