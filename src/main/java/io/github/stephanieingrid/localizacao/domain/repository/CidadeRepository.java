@@ -2,6 +2,7 @@ package io.github.stephanieingrid.localizacao.domain.repository;
 
 import ch.qos.logback.classic.pattern.LineSeparatorConverter;
 import io.github.stephanieingrid.localizacao.domain.entity.Cidade;
+import io.github.stephanieingrid.localizacao.domain.repository.projections.CidadeProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -16,7 +17,7 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 
 
     @Query(nativeQuery = true, value ="select * from tb_cidade as c where c.nome =:nome" )
-    List<Cidade> findByNomeSqlNativo (@Param("nome") String nome);
+    List<CidadeProjection> findByNomeSqlNativo (@Param("nome") String nome);
 
 
     List<Cidade> findAll(Specification<Cidade> nome);

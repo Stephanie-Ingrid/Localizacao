@@ -38,6 +38,8 @@ public class CidadeService {
     public void listarCidadesPorNomeSql() {
         cidadeRepository
                 .findByNomeSqlNativo("São Paulo")
+                .stream().map(cidadeProjection -> new Cidade
+                        (cidadeProjection.getId(), cidadeProjection.getNome(), null ))
                 .forEach(System.out::println);
 
     }
