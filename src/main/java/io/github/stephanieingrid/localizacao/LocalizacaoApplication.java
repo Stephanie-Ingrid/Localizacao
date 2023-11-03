@@ -17,7 +17,7 @@ public class LocalizacaoApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		var cidade = new Cidade(1L,"São Paulo", 1000L);
-		cidadeService.listarCidadesSpecsFiltroDinamico(cidade);
+		cidadeService.listarCidadesPorNomeSql();
 	}
 
 	public static void main(String[] args) {

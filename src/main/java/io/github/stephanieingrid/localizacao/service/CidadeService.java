@@ -35,6 +35,13 @@ public class CidadeService {
                 .forEach(System.out::println);
     }
 
+    public void listarCidadesPorNomeSql() {
+        cidadeRepository
+                .findByNomeSqlNativo("São Paulo")
+                .forEach(System.out::println);
+
+    }
+
     public void listarCidadesPorNome() {
         cidadeRepository
                 .findByNomeLike("s%", Sort.by("habitantes"))

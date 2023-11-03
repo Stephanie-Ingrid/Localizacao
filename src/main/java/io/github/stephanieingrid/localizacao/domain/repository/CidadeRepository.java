@@ -8,10 +8,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface CidadeRepository extends JpaRepository<Cidade, Long> {
+
+
+    @Query(nativeQuery = true, value ="select * from tb_cidade as c where c.nome =:nome" )
+    List<Cidade> findByNomeSqlNativo (@Param("nome") String nome);
 
 
     List<Cidade> findAll(Specification<Cidade> nome);
